@@ -1,0 +1,133 @@
+#+title: Projeto 4
+
+* Introdução
+
+  No assignment 3, desenvolvemos a extração de algumas informações
+  adicionais sobre os verbetes do DHBB. Se juntarmos os arquivos do
+  [[http://github.com/cpdoc/dhbb][DHBB]] com os dados extraídos, temos agora para cada verbete:
+
+  #+begin_src yaml
+    document   : 10
+    name       : Armando Abílio Vieira
+    birthplace : Itaporanga (PB)
+    birthdate  : 29/12/1944
+    parents    :
+      - Argemiro Abílio de Sousa
+      - Luísa Bronzeado Vieira
+    title      : ABÍLIO, Armando
+    natureza   : biográfico
+    sexo       : m
+    cargos     :
+     - dep. fed. PB 1995-1999
+     - dep. fed. PB 1999-2003
+     - dep. fed. PB 2007-2011
+     - dep. fed. PB 2012
+    autor      :
+     - Alan Carneiro
+     - Demian Melo (atualização)
+    text       : >-
+      «Armando Abílio Vieira» nasceu em Itaporanga (PB) no dia 29 de
+      dezembro de 1944, filho de Argemiro Abílio de Sousa e de Luísa
+      Bronzeado Vieira.
+
+      Em 1962 ingressou, em Recife, na Faculdade de Ciências...
+  #+end_src
+
+  Temos 7709 verbetes no DHBB sendo aproximadamente 6746 biográficos
+  (sobre pessoas) e foram estes os verbetes que utilizamos no
+  assignment 3:
+
+  #+begin_src bash
+    % egrep -c "natureza:[ ]*biográfico[ ]*$" *.text | awk -F ':' '{print $2}' | sort | uniq -c
+     963 0
+    6746 1
+  #+end_src
+
+  Sobre os verbetes temáticos, só temos a estrutura:
+
+  #+begin_src yaml
+    title    : INSTITUTO NACIONAL DE PREVIDÊNCIA SOCIAL (INPS)
+    natureza : temático
+    tipo     :
+      - Organização
+    subtipo  :
+      - Empresa
+    autor    :
+       - Alzira Alves de Abreu
+    text     : >-
+      Órgão criado pelo Decreto nº 72, de 21 de novembro de 1966 ...
+  #+end_src
+
+  Neste projeto, queremos desenvolver uma interface de busca sobre
+  estes dados.
+
+* Alternativa 1
+
+  O [[http://dhbb.mybluemix.net/dhbb/home][demo]] atual tem como [[https://en.wikipedia.org/wiki/Frontend_and_backend][backend]] o sistema [[http://elastic.co][Elastic Search]] baseado no
+  [[https://lucene.apache.org][Lucene]]. Outro sistema baseado no Lucene é o [[https://solr.apache.org][Solr]].
+
+  Na primeira parte do projeto, seu objetivo será estudar, instalar e
+  indexar os dados do DHBB no Elastic Search ou Solr. Você deverá
+  indexar os documentos da forma a permitir consultas como:
+
+  1. documentos que contenham 'Alzira' no campo =autor=
+  2. documentos que a pessoa tenha nascido no ano de 1944 (campo
+     =birthdate=)
+  3. documentos que a pessoa tenha nascido no estado do RJ (campo
+     =birthplace=)
+  4. documentos cuja pessoa tenha sido dep. (deputado) (campo
+     =cargos=)
+  5. documentos que contenham a palavra 'professor' no =text=
+  6. documentos que contenham a palavra 'faculdade' e 'medicina' no
+     mesmo parágrafo ou sentença (campo =text=).
+
+  Isto é, queremos permitir buscas por tokens nos campos 'autor',
+  'cargos', 'birthplace', 'birthdate' e minimamente buscas [[https://nlp.stanford.edu/IR-book/pdf/01bool.pdf][boleanas]] no
+  campo 'text'.
+
+  Idealmente, você precisará desenvolver uma UI (frontend) para que os
+  seus usuários possam submeter consultas e ver resultados. Para isso,
+  você terá total liberdade de criar, desde uma simples interface
+  texto: um script que pode ser executado da linha de comando, execute
+  a consulta e devolva os resultados imprimindo na saida; ou um
+  notebook com instruções claras de como o usuário deve preparar o
+  ambiente para usar o notebook e com exemplos de uso; ou uma simples
+  interface web usando bibliotecas como [[https://palletsprojects.com/p/flask/][Flask]] (ou qualquer similar).
+
+  Campos como =tipo=, =subtipo=, =natureza= e =sexo= não precisam ter
+  os valores processados, isto é, iremos assumir que a busca por um
+  destes campos será sempre baseada na localização de um de seus
+  valores exatos. Ex: uma busca no campo 'tipo' sempre será para
+  retornar os documentos cujo valor seja exatamente o informado, por
+  exemplo, todos os verbetes cujo tipo seja 'Organização'.
+
+
+* Alternativa 2
+
+  Em https://web.stanford.edu/class/cs276/, você pode escolher fazer o
+  'Programming assigment #1'
+
+  Obviamente, a entrega será feita sem seguir as intruções do curso de
+  Stanford, apenas descomprimir o conteúdo do assignmente neste repo e
+  trabalhar no repositório. Ignorar instruções sobre entrega e
+  autograde.
+
+  Note que os dados de trabalho sugeridos no assignment original do
+  curso de Stanford podem ser substituídos pelo DHBB (neste caso o
+  campo 'text' apenas, ignorando os demais campos). Você deve adaptar
+  as instruções para usar os textos dos 6746 verbetes biográficos ou
+  trabalhar nos dados de Stanford reportando e justificando exatamente
+  o problema que teve para adaptar o código para uso dos textos do
+  DHBB.
+  
+
+* Avaliação
+
+  Você será avaliado sobre:
+
+  1. clareza e organização do seu repositório e código.
+
+  2. precisa documentação do que foi feito e como devemos usar seu
+     código.
+
+  3. resultados do seu código em relação a tarefa.
