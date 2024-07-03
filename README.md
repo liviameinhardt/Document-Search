@@ -32,7 +32,7 @@ Para replicar o programa siga os passos em [Documentacao](https://github.com/liv
 
 Anteriormente, desenvolvemos a extração de algumas informações  sobre os verbetes do DHBB. Se juntarmos os arquivos do [DHBB](http://github.com/cpdoc/dhbb) com os dados extraídos, temos agora para cada verbete:
 
-  #+begin_src yaml
+ ``` yaml
     document   : 10
     name       : Armando Abílio Vieira
     birthplace : Itaporanga (PB)
@@ -57,20 +57,20 @@ Anteriormente, desenvolvemos a extração de algumas informações  sobre os ver
       Bronzeado Vieira.
 
       Em 1962 ingressou, em Recife, na Faculdade de Ciências...
-  #+end_src
+```
 
   Temos 7709 verbetes no DHBB sendo aproximadamente 6746 biográficos
   (sobre pessoas):
 
-  #+begin_src bash
+ ``` bash
     % egrep -c "natureza:[ ]*biográfico[ ]*$" *.text | awk -F ':' '{print $2}' | sort | uniq -c
      963 0
     6746 1
-  #+end_src
+```
 
   Sobre os verbetes temáticos, só temos a estrutura:
 
-  #+begin_src yaml
+ ```yaml
     title    : INSTITUTO NACIONAL DE PREVIDÊNCIA SOCIAL (INPS)
     natureza : temático
     tipo     :
@@ -81,7 +81,7 @@ Anteriormente, desenvolvemos a extração de algumas informações  sobre os ver
        - Alzira Alves de Abreu
     text     : >-
       Órgão criado pelo Decreto nº 72, de 21 de novembro de 1966 ...
-  #+end_src
+```
 
   Neste projeto, queremos desenvolver uma interface de busca sobre
   estes dados.
