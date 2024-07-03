@@ -1,10 +1,35 @@
-#+title: Projeto 4
+# Recuperação de Documentos
 
-* Introdução
+Para replicar o programa siga os passos em [[https://github.com/liviameinhardt/Document-Search/blob/5a484ec81377bb0a51219870a15b352e2f039249/Documentacao.md][Documentacao]]
 
-  No assignment 3, desenvolvemos a extração de algumas informações
-  adicionais sobre os verbetes do DHBB. Se juntarmos os arquivos do
-  [[http://github.com/cpdoc/dhbb][DHBB]] com os dados extraídos, temos agora para cada verbete:
+## Objetivo
+
+  O [[http://dhbb.mybluemix.net/dhbb/home][demo]] atual tem como [[https://en.wikipedia.org/wiki/Frontend_and_backend][backend]] o sistema [[http://elastic.co][Elastic Search]] baseado no
+  [[https://lucene.apache.org][Lucene]].  Assim, o objetivo do projeto foi estudar, instalar e
+  indexar os dados do DHBB no Elastic Search, de forma a permitir consultas como:
+
+  1. documentos que contenham 'Alzira' no campo =autor=
+  2. documentos que a pessoa tenha nascido no ano de 1944 (campo
+     =birthdate=)
+  3. documentos que a pessoa tenha nascido no estado do RJ (campo
+     =birthplace=)
+  4. documentos cuja pessoa tenha sido dep. (deputado) (campo
+     =cargos=)
+  5. documentos que contenham a palavra 'professor' no =text=
+  6. documentos que contenham a palavra 'faculdade' e 'medicina' no
+     mesmo parágrafo ou sentença (campo =text=).
+
+  Isto é, queremos permitir buscas por tokens nos campos 'autor',
+  'cargos', 'birthplace', 'birthdate' e minimamente buscas [[https://nlp.stanford.edu/IR-book/pdf/01bool.pdf][boleanas]] no
+  campo 'text'.
+
+  A interface do programa final:
+![pagina inicial](img/paginainicial.png)
+
+
+##  Dados
+
+Anteriormente, desenvolvemos a extração de algumas informações  sobre os verbetes do DHBB. Se juntarmos os arquivos do [[http://github.com/cpdoc/dhbb][DHBB]] com os dados extraídos, temos agora para cada verbete:
 
   #+begin_src yaml
     document   : 10
@@ -34,8 +59,7 @@
   #+end_src
 
   Temos 7709 verbetes no DHBB sendo aproximadamente 6746 biográficos
-  (sobre pessoas) e foram estes os verbetes que utilizamos no
-  assignment 3:
+  (sobre pessoas):
 
   #+begin_src bash
     % egrep -c "natureza:[ ]*biográfico[ ]*$" *.text | awk -F ':' '{print $2}' | sort | uniq -c
@@ -61,73 +85,5 @@
   Neste projeto, queremos desenvolver uma interface de busca sobre
   estes dados.
 
-* Alternativa 1
-
-  O [[http://dhbb.mybluemix.net/dhbb/home][demo]] atual tem como [[https://en.wikipedia.org/wiki/Frontend_and_backend][backend]] o sistema [[http://elastic.co][Elastic Search]] baseado no
-  [[https://lucene.apache.org][Lucene]]. Outro sistema baseado no Lucene é o [[https://solr.apache.org][Solr]].
-
-  Na primeira parte do projeto, seu objetivo será estudar, instalar e
-  indexar os dados do DHBB no Elastic Search ou Solr. Você deverá
-  indexar os documentos da forma a permitir consultas como:
-
-  1. documentos que contenham 'Alzira' no campo =autor=
-  2. documentos que a pessoa tenha nascido no ano de 1944 (campo
-     =birthdate=)
-  3. documentos que a pessoa tenha nascido no estado do RJ (campo
-     =birthplace=)
-  4. documentos cuja pessoa tenha sido dep. (deputado) (campo
-     =cargos=)
-  5. documentos que contenham a palavra 'professor' no =text=
-  6. documentos que contenham a palavra 'faculdade' e 'medicina' no
-     mesmo parágrafo ou sentença (campo =text=).
-
-  Isto é, queremos permitir buscas por tokens nos campos 'autor',
-  'cargos', 'birthplace', 'birthdate' e minimamente buscas [[https://nlp.stanford.edu/IR-book/pdf/01bool.pdf][boleanas]] no
-  campo 'text'.
-
-  Idealmente, você precisará desenvolver uma UI (frontend) para que os
-  seus usuários possam submeter consultas e ver resultados. Para isso,
-  você terá total liberdade de criar, desde uma simples interface
-  texto: um script que pode ser executado da linha de comando, execute
-  a consulta e devolva os resultados imprimindo na saida; ou um
-  notebook com instruções claras de como o usuário deve preparar o
-  ambiente para usar o notebook e com exemplos de uso; ou uma simples
-  interface web usando bibliotecas como [[https://palletsprojects.com/p/flask/][Flask]] (ou qualquer similar).
-
-  Campos como =tipo=, =subtipo=, =natureza= e =sexo= não precisam ter
-  os valores processados, isto é, iremos assumir que a busca por um
-  destes campos será sempre baseada na localização de um de seus
-  valores exatos. Ex: uma busca no campo 'tipo' sempre será para
-  retornar os documentos cujo valor seja exatamente o informado, por
-  exemplo, todos os verbetes cujo tipo seja 'Organização'.
 
 
-* Alternativa 2
-
-  Em https://web.stanford.edu/class/cs276/, você pode escolher fazer o
-  'Programming assigment #1'
-
-  Obviamente, a entrega será feita sem seguir as intruções do curso de
-  Stanford, apenas descomprimir o conteúdo do assignmente neste repo e
-  trabalhar no repositório. Ignorar instruções sobre entrega e
-  autograde.
-
-  Note que os dados de trabalho sugeridos no assignment original do
-  curso de Stanford podem ser substituídos pelo DHBB (neste caso o
-  campo 'text' apenas, ignorando os demais campos). Você deve adaptar
-  as instruções para usar os textos dos 6746 verbetes biográficos ou
-  trabalhar nos dados de Stanford reportando e justificando exatamente
-  o problema que teve para adaptar o código para uso dos textos do
-  DHBB.
-  
-
-* Avaliação
-
-  Você será avaliado sobre:
-
-  1. clareza e organização do seu repositório e código.
-
-  2. precisa documentação do que foi feito e como devemos usar seu
-     código.
-
-  3. resultados do seu código em relação a tarefa.
