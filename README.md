@@ -1,12 +1,12 @@
 
 # Recuperação de Documentos
 
-Para replicar o programa siga os passos em [[https://github.com/liviameinhardt/Document-Search/blob/5a484ec81377bb0a51219870a15b352e2f039249/Documentacao.md][Documentacao]]
+Para replicar o programa siga os passos em [Documentacao](https://github.com/liviameinhardt/Document-Search/blob/5a484ec81377bb0a51219870a15b352e2f039249/Documentacao.md)
 
 ## Objetivo
 
-  O [[http://dhbb.mybluemix.net/dhbb/home][demo]] atual tem como [[https://en.wikipedia.org/wiki/Frontend_and_backend][backend]] o sistema [[http://elastic.co][Elastic Search]] baseado no
-  [[https://lucene.apache.org][Lucene]].  Assim, o objetivo do projeto foi estudar, instalar e
+  O [demo](http://dhbb.mybluemix.net/dhbb/home) atual tem como [backend](https://en.wikipedia.org/wiki/Frontend_and_backend) o sistema [Elastic Search](http://elastic.co) baseado no
+  [Lucene](https://lucene.apache.org).  Assim, o objetivo do projeto foi estudar, instalar e
   indexar os dados do DHBB no Elastic Search, de forma a permitir consultas como:
 
   1. documentos que contenham 'Alzira' no campo =autor=
@@ -21,7 +21,7 @@ Para replicar o programa siga os passos em [[https://github.com/liviameinhardt/D
      mesmo parágrafo ou sentença (campo =text=).
 
   Isto é, queremos permitir buscas por tokens nos campos 'autor',
-  'cargos', 'birthplace', 'birthdate' e minimamente buscas [[https://nlp.stanford.edu/IR-book/pdf/01bool.pdf][boleanas]] no
+  'cargos', 'birthplace', 'birthdate' e minimamente buscas [boleanas](https://nlp.stanford.edu/IR-book/pdf/01bool.pdf) no
   campo 'text'.
 
   A interface do programa final:
@@ -30,7 +30,7 @@ Para replicar o programa siga os passos em [[https://github.com/liviameinhardt/D
 
 ##  Dados
 
-Anteriormente, desenvolvemos a extração de algumas informações  sobre os verbetes do DHBB. Se juntarmos os arquivos do [[http://github.com/cpdoc/dhbb][DHBB]] com os dados extraídos, temos agora para cada verbete:
+Anteriormente, desenvolvemos a extração de algumas informações  sobre os verbetes do DHBB. Se juntarmos os arquivos do [DHBB](http://github.com/cpdoc/dhbb) com os dados extraídos, temos agora para cada verbete:
 
   #+begin_src yaml
     document   : 10
