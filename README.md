@@ -1,6 +1,8 @@
 
 # Recuperação de Documentos
 
+Usar ElasticSearch para criar um mecanismo de busca dos textos do DHBB. Anteriormente, extraímos informações desses textos usando a árvore de dependência e salvamos novos arquivos nos formatos yaml e json.
+
 Para replicar o programa siga os passos em [Documentacao](https://github.com/liviameinhardt/Document-Search/blob/5a484ec81377bb0a51219870a15b352e2f039249/Documentacao.md)
 
 ## Objetivo
